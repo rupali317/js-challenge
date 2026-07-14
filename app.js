@@ -16,8 +16,13 @@
 function updateHeader(elementId, userName) {
   // 1. Change the text content of the element to "Welcome, [userName]!"
   // 2. Append this exact HTML string inside the element: "<div class='banner'>Premium Account</div>"
-  // YOUR CODE HERE
-
+  const element = document.getElementById(elementId);
+  element.textContent = `Welcome, ${userName}!`;
+  const bannerDiv = document.createElement("div");
+  bannerDiv.className = "banner";
+  bannerDiv.textContent = "Premium Account";
+  element.appendChild(bannerDiv);
+  // element.innerHTML += `<div class='banner'>Premium Account</div>`;
 }
 
 /**
@@ -30,21 +35,33 @@ function renderProductList(containerId, productsArray) {
   // 3. Loop through productsArray, create a new 'li' element for each product string.
   // 4. Set the text content of the 'li' to the product string.
   // 5. Append all elements to the fragment, then append the fragment to the container.
-  // YOUR CODE HERE
-
+  const container = document.getElementById(containerId);
+  const fragment = document.createDocumentFragment();
+  // const RefinedProductsArray = productsArray.map(
+  //   (products) => `<li>${products}</li>`
+  // );
+  productsArray.forEach((product) => {
+    const li = document.createElement("li");
+    li.textContent = product;
+    fragment.append(li);
+  });
+  container.append(fragment);
 }
 
 /**
  * Task 4: Clean up defective products from the DOM.
  * Topics: Removing elements from the DOM
  */
+//exercises.removeDefectiveItems(".bad");
 function removeDefectiveItems(selector) {
   // 1. Select all elements matching the selector (e.g., '.defective').
   // 2. Loop through them and remove them completely from the DOM.
   // YOUR CODE HERE
-
+  /* const defectiveList = document.querySelectorAll(selector);
+  for (const defective of defectiveList) {
+    defectiveList.removeChild(defective);
+  } */
 }
-
 
 // ===============================================================
 // PART 2: LOGIC, STRINGS & PARAMETERS
@@ -58,8 +75,8 @@ function removeDefectiveItems(selector) {
  * - Otherwise, if cartTotal is 100 or more, return a 20% discount (0.2), else return 10% (0.1) using a ternary.
  */
 function calculateDiscount(userStatus, cartTotal) {
-  // YOUR CODE HERE
-
+  if (!userStatus.isLoggedIn || !userStatus.isPremium) return 0;
+  return cartTotal >= 100 ? 0.2 : 0.1;
 }
 
 /**
@@ -71,10 +88,10 @@ function generateReceipt(item, { tax = 0.05, currency = "$" } = {}) {
   // 1. Destructure 'name' and 'price' from the item object.
   // 2. Calculate the final price: price + (price * tax)
   // 3. Return a template literal string: "Item: [name] | Total: [currency][finalPrice]"
-  // YOUR CODE HERE
-
+  const { name, price } = item;
+  const finalPrice = price + price * tax;
+  return `Item: ${name} | Total: ${currency}${finalPrice}`;
 }
-
 
 // ===============================================================
 // PART 3: ADVANCED OBJECTS & ARRAYS
@@ -91,7 +108,6 @@ const createInventoryItem = (id, title, price, extraDetails) => {
   // 3. Spread all properties of the 'extraDetails' object into this new object.
   // 4. Add a calculated property 'isExpensive' which is true if price > 100, else false.
   // YOUR CODE HERE
-
 };
 
 /**
@@ -102,7 +118,6 @@ function getActiveCartTotal(cartItems) {
   // 1. Use .filter() to keep only items where item.active is true.
   // 2. Use .reduce() to sum up the 'price' of those filtered items.
   // YOUR CODE HERE
-
 }
 
 /**
@@ -113,14 +128,18 @@ function getActiveCartTotal(cartItems) {
  */
 function formatWarehouseStock(stockObject) {
   // YOUR CODE HERE
-
 }
 
 // Node.js export module pattern (Allows the test suite to read these functions)
-if (typeof module !== 'undefined') {
+if (typeof module !== "undefined") {
   module.exports = {
-    updateHeader, renderProductList, removeDefectiveItems,
-    calculateDiscount, generateReceipt, createInventoryItem,
-    getActiveCartTotal, formatWarehouseStock
+    updateHeader,
+    renderProductList,
+    removeDefectiveItems,
+    calculateDiscount,
+    generateReceipt,
+    createInventoryItem,
+    getActiveCartTotal,
+    formatWarehouseStock,
   };
 }
