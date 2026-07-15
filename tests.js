@@ -1,6 +1,3 @@
-const { JSDOM } = require("jsdom");
-
-// Now you can use document.getElementById, createDocumentFragment, etc.
 const exercises = require("./app.js");
 
 function runTests() {

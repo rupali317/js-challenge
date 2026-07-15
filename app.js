@@ -102,13 +102,18 @@ function generateReceipt(item, { tax = 0.05, currency = "$" } = {}) {
  * Topics: Enhanced object literals, Rest/Spread, Implicit returns
  * Note: Try to use an implicit return arrow function if possible!
  */
-const createInventoryItem = (id, title, price, extraDetails) => {
+const createInventoryItem = (id, title, price, extraDetails) =>
   // 1. Return an object implicitly.
   // 2. Use enhanced object literal shorthand for id, title, and price.
   // 3. Spread all properties of the 'extraDetails' object into this new object.
   // 4. Add a calculated property 'isExpensive' which is true if price > 100, else false.
-  // YOUR CODE HERE
-};
+  ({
+    id,
+    title,
+    price,
+    ...extraDetails,
+    ["isExpensive"]: price > 100,
+  });
 
 /**
  * Task 13 & 14: Process cart data to get total price of active items.
@@ -117,7 +122,9 @@ const createInventoryItem = (id, title, price, extraDetails) => {
 function getActiveCartTotal(cartItems) {
   // 1. Use .filter() to keep only items where item.active is true.
   // 2. Use .reduce() to sum up the 'price' of those filtered items.
-  // YOUR CODE HERE
+  return cartItems
+    .filter((item) => item.active)
+    .reduce((acc, curr) => curr.price + acc, 0);
 }
 
 /**
@@ -127,7 +134,11 @@ function getActiveCartTotal(cartItems) {
  * Output example: ["Location aisleA holds 12 items", "Location aisleB holds 40 items"]
  */
 function formatWarehouseStock(stockObject) {
-  // YOUR CODE HERE
+  const output = [];
+  for (const [key, value] of Object.entries(stockObject)) {
+    output.push(`Location ${key} holds ${value} items`);
+  }
+  return output;
 }
 
 // Node.js export module pattern (Allows the test suite to read these functions)
