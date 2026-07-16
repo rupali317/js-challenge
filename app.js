@@ -52,15 +52,13 @@ function renderProductList(containerId, productsArray) {
  * Task 4: Clean up defective products from the DOM.
  * Topics: Removing elements from the DOM
  */
-//exercises.removeDefectiveItems(".bad");
 function removeDefectiveItems(selector) {
   // 1. Select all elements matching the selector (e.g., '.defective').
   // 2. Loop through them and remove them completely from the DOM.
-  // YOUR CODE HERE
-  /* const defectiveList = document.querySelectorAll(selector);
+  const defectiveList = document.querySelectorAll(selector);
   for (const defective of defectiveList) {
-    defectiveList.removeChild(defective);
-  } */
+    defective.remove();
+  }
 }
 
 // ===============================================================
