@@ -14,9 +14,11 @@ function runTests() {
         this.html = v;
       },
       appendChild: (c) => {},
+      append: (c) => {},
     }),
     querySelectorAll: () => [{ remove: () => {} }],
     createElement: () => ({}),
+    createDocumentFragment: () => ({ appendChild: () => {}, append: () => {} }),
   };
 
   // Test 1-4 (DOM)
