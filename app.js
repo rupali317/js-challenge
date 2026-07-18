@@ -37,9 +37,13 @@ function renderProductList(containerId, productsArray) {
   // 5. Append all elements to the fragment, then append the fragment to the container.
   const container = document.getElementById(containerId);
   const fragment = document.createDocumentFragment();
-  // const RefinedProductsArray = productsArray.map(
-  //   (products) => `<li>${products}</li>`
-  // );
+  // const RefinedProductsArray = productsArray.map((product) => {
+  //   const li = document.createElement("li");
+  //   li.textContent = product;
+  //   fragment.append(li);
+  //   return li;
+  // });
+  // console.log(RefinedProductsArray);
   productsArray.forEach((product) => {
     const li = document.createElement("li");
     li.textContent = product;
